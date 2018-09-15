@@ -19,7 +19,9 @@ RUN apt-get update && apt-get install -qqy --no-install-recommends \
   nginx \
   uwsgi \
   uwsgi-plugin-python \
-  rsyslog
+  rsyslog \
+  python-docutils \
+  python-markdown
 
 # Download MoinMoin
 RUN curl -OkL \
@@ -34,6 +36,10 @@ RUN cd moinmoin && python2.7 setup.py install --force --prefix=/usr/local
 ADD wikiconfig.py /usr/local/share/moin/
 RUN chown -Rh www-data:www-data /usr/local/share/moin/underlay
 USER root
+
+# Install markdown parser
+RUN curl -ko /usr/local/lib/python2.7/dist-packages/MoinMoin/parser/text_markdown.py \
+     'https://moinmo.in/ParserMarket/Markdown?action=AttachFile&do=get&target=modified-text_markdown.py'
 
 # Copy default data into a new folder, we will use this to add content
 # if you start a new container using volumes
