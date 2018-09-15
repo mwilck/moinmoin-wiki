@@ -14,6 +14,20 @@ Volumes are also supported if you want to simplify backup with rsync or ZFS snap
 
     sudo docker run -d -p 443:443 -p 80:80 -v /opt/moinmoin-data:/usr/local/share/moin/data --name my_wiki olavgg/moinmoin-wiki
 
+## Changes wrt olafgg/moinmoin-wiki
+
+This container includes support for [Restructured Text][1] and
+[Markdown][2]. The former is built-in in MoinMoin, but requires the `docutils`
+package. The latter requires the `markdown` package, and a minimal [parser][3].
+
+To activate either format, use
+
+    #format rst
+
+or
+
+    #format text_markdown
+
 ## NOTE
 Since MoinMoin version 1.9.10 the default security settings became more strict. This Docker release has a much more relaxed security defaults. [Please read the changes](https://github.com/moinwiki/moin-1.9/blob/1.9.10/docs/CHANGES#L13)
 
@@ -27,3 +41,6 @@ If you do not need HTTPS you can disable it by passing the -e NOSSL environment 
 
 Pull requests are very welcome.
 
+[1]: https://moinmo.in/ReStructuredText
+[2]: http://daringfireball.net/projects/markdown/
+[3]: https://moinmo.in/ParserMarket/Markdown
